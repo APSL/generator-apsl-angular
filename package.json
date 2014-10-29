@@ -1,0 +1,12 @@
+{
+  "name": "apsl-angular-generator",
+  "version": "0.0.1",
+  "description": "",
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "yeoman-generator": "~0.17.7",
+    "chalk": "~0.5.1"
+  }
+}
