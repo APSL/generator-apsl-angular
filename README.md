@@ -5,5 +5,5 @@ Usarlo en local
  - Entrar dentro la carpeta.
  - Ejecutar: 
 ```bash
->$ sudo npm link
+$ sudo npm link
 ```
