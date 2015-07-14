@@ -1,11 +1,11 @@
 'use strict';
 
 var $ = {
-  chalk: require('chalk'),
   fs: require('fs'),
   path: require('path')
 };
 
+var config;
 var fileTypes;
 var filesCaught = [];
 var globalDependenciesSorted;
@@ -15,10 +15,11 @@ var ignorePath;
 /**
  * Inject dependencies into the specified source file.
  *
- * @param  {object} config  the global configuration object.
+ * @param  {object} globalConfig  the global configuration object.
  * @return {object} config
  */
-function injectDependencies(config) {
+function injectDependencies(globalConfig) {
+  config = globalConfig;
   var stream = config.get('stream');
 
   filesCaught = [];
@@ -56,14 +57,22 @@ function replaceIncludes(file, fileType, returnType) {
 
     var newFileContents = startBlock;
     var dependencies = globalDependenciesSorted[blockType] || [];
+    var quoteMark = '';
 
     (string.substr(0, offset) + string.substr(offset + match.length)).
       replace(oldScripts, '').
       replace(fileType.block, '').
       replace(fileType.detect[blockType], function (match, reference) {
+        quoteMark = match.match(/['"]/) && match.match(/['"]/)[0];
         filesCaught.push(reference.replace(/['"\s]/g, ''));
-        return match;
       });
+
+    if (!quoteMark) {
+      // What the heck. Check if there's anything in the oldScripts block.
+      match.replace(fileType.detect[blockType], function (match) {
+        quoteMark = match.match(/['"]/) && match.match(/['"]/)[0];
+      });
+    }
 
     spacing = returnType + spacing.replace(/\r|\n/g, '');
 
@@ -83,6 +92,14 @@ function replaceIncludes(file, fileType, returnType) {
         } else if (typeof fileType.replace[blockType] === 'string') {
           newFileContents += spacing + fileType.replace[blockType].replace('{{filePath}}', filePath);
         }
+        if (quoteMark) {
+          newFileContents = newFileContents.replace(/"/g, quoteMark);
+        }
+        config.get('on-path-injected')({
+          block: blockType,
+          file: file,
+          path: filePath
+        });
       });
 
     return newFileContents + spacing + endBlock;
@@ -110,9 +127,7 @@ function injectScripts(filePath) {
   if (contents !== newContents) {
     $.fs.writeFileSync(filePath, newContents);
 
-    if (process.env.NODE_ENV !== 'test') {
-      console.log($.chalk.cyan(filePath) + ' modified.');
-    }
+    config.get('on-file-updated')(filePath);
   }
 }
 
@@ -121,10 +136,14 @@ function injectScriptsStream(filePath, contents, fileExt) {
   var returnType = /\r\n/.test(contents) ? '\r\n' : '\n';
   var fileType = fileTypes[fileExt] || fileTypes['default'];
 
-  return contents.replace(
+  var newContents = contents.replace(
     fileType.block,
     replaceIncludes(filePath, fileType, returnType)
   );
+
+  config.get('on-file-updated')(filePath);
+
+  return newContents;
 }
 
 

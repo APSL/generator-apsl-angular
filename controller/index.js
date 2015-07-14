@@ -32,4 +32,3 @@ Generator.prototype.createControllerFiles = function createControllerFiles() {
   );
   this.recoverSourceRoot();
 };
-

@@ -7,10 +7,11 @@
  # # <%= classedName %>Ctrl
  # Controller of the <%= scriptAppName %>
 ###
-angular.module('<%= scriptAppName %>')
-  .controller '<%= classedName %>Ctrl', ($scope) ->
-    $scope.awesomeThings = [
+angular.module '<%= scriptAppName %>'
+  .controller '<%= classedName %>Ctrl', ->
+    @awesomeThings = [
       'HTML5 Boilerplate'
       'AngularJS'
       'Karma'
     ]
+    return

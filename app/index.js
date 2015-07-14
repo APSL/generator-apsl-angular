@@ -1,4 +1,5 @@
 'use strict';
+
 var path = require('path');
 var util = require('util');
 var angularUtils = require('generator-angular/util.js');
@@ -7,6 +8,7 @@ var angular = require('generator-angular');
 var yosay = require('yosay');
 var wiredep = require('wiredep');
 var chalk = require('chalk');
+var mkdirp = require('mkdirp');
 
 var Generator = module.exports = function Generator(args, options) {
     angular.apply(this, arguments);
@@ -30,7 +32,8 @@ Generator.prototype.welcome = function welcome() {
                 '***** APSL Angular Generator  ******\n\n'
             ),
             chalk.magenta(
-                'This generator extends the default yo generator-angular in order to scaffold angular projects according' +
+                'This generator extends the default yo generator-angular in ' +
+                'order to scaffold angular projects according' +
                 'to APSL dev standards \n'
             )
         );
@@ -45,7 +48,6 @@ Generator.prototype.welcome = function welcome() {
     }
 };
 
-
 Generator.prototype.appJs = function appJs() {
   this.indexFile = this.appendFiles({
     html: this.indexFile,
@@ -54,4 +56,11 @@ Generator.prototype.appJs = function appJs() {
     sourceFileList: ['scripts/app.js', 'scripts/controllers/main.js'],
     searchPath: ['.tmp', this.appPath]
   });
+};
+
+/**
+ * Creates the common dir to store globally available modules
+ */
+Generator.prototype.createCommonDir = function createCommonDir() {
+    mkdirp('common/');
 };
