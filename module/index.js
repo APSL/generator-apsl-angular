@@ -19,32 +19,32 @@ var Generator = module.exports = function(){
     mkdirp('app/' + this.moduleNamePascalCase + '/views/');
 
     this.hookFor('apsl-angular:controller', {
-      args: [
-        "controller",
-        this.moduleNamePascalCase
-      ]
+        args: [
+            "controller",
+            this.moduleNamePascalCase
+        ]
     });
 
     if (this.env.options.coffee) {
-      this.folder = 'coffeescript';
+        this.folder = 'coffeescript';
     } else {
-      this.folder = 'javascript';
+        this.folder = 'javascript';
     }
 };
 
 util.inherits(Generator, ScriptBase);
 
-Generator.prototype.info = function(){
-  this.name = 'config';
-  this.overrideSourceRoot();
-  console.log(this.sourceRoot());
-  this.generateSourceAndTest(
-    'config',
-    'spec/controller',
-    this.moduleNamePascalCase,
-    this.options['skip-add'] || false
-  );
-  this.recoverSourceRoot();
-  //this.template(this.sourceRoot()  + '/../../templates/'+ this.folder + '/config.js', "app/scripts/" + this.moduleName + '/config', this);
-  chalk.red("Creado el módulo " + this.name + " y sus componentes.");
+Generator.prototype.info = function() {
+    this.name = 'config';
+    this.overrideSourceRoot();
+    console.log(this.sourceRoot());
+    this.generateSourceAndTest(
+        'config',
+        'spec/controller',
+        this.moduleNamePascalCase,
+        this.options['skip-add'] || false
+    );
+    this.recoverSourceRoot();
+    //this.template(this.sourceRoot()  + '/../../templates/'+ this.folder + '/config.js', "app/scripts/" + this.moduleName + '/config', this);
+    chalk.red("Creado el módulo " + this.name + " y sus componentes.");
 };
