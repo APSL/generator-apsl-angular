@@ -1,5 +1,6 @@
 'use strict';
 
+var fs = require('fs');
 var path = require('path');
 var util = require('util');
 var angularUtils = require('generator-angular/util.js');
@@ -29,7 +30,7 @@ Generator.prototype.welcome = function welcome() {
                 '   / /\\ \\ |  ___/ \\___ \\| |     \n' +
                 '  / ____ \\| |     ____) | |____ \n' +
                 ' /_/    \\_\\_|    |_____/|______|\n' +
-                '***** APSL Angular Generator  ******\n\n'
+                '****** APSL Angular Generator  ******\n\n'
             ),
             chalk.magenta(
                 'This generator extends the default yo generator-angular in ' +
@@ -56,6 +57,27 @@ Generator.prototype.appJs = function appJs() {
     sourceFileList: ['scripts/app.js', 'scripts/controllers/main.js'],
     searchPath: ['.tmp', this.appPath]
   });
+};
+
+/**
+ * Creates the custom Gruntfile before the generator-angular one.
+ * Should overwrite Generator.prototype.packageFiles in the future.
+ */
+Generator.prototype.configureCustomGruntfile = function configureCustomGruntfile() {
+    // Re-calculate template path
+    this.oldRoot = this.sourceRoot();
+    var sourceRoot = '../templates/common';
+    this.sourceRoot(path.join(__dirname, sourceRoot));
+
+    // Remove old Grunfile and create custom one
+    fs.unlinkSync('Gruntfile.js');
+    this.log('Remove old Gruntfile');
+    this.coffee = this.env.options.coffee;
+    this.typescript = this.env.options.typescript;
+    this.template('root/_Gruntfile.js', 'Gruntfile.js');
+
+    // Restore template path
+    this.sourceRoot(this.oldRoot);
 };
 
 /**
