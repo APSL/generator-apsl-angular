@@ -1,7 +1,8 @@
+# generator-apsl-angular
 
+Generador de aplicaciones AngularJS siguiendo el estándar APSL.
 
-Instalación
-===============
+## Instalación
 
 - Instalar herramientas:
 ```bash
