@@ -4,7 +4,7 @@ Generador de aplicaciones AngularJS siguiendo el estándar APSL.
 
 ## Instalación
 
-- Instalar compass:
+- Instalar [compass](http://compass-style.org/install/):
 ```bash
 $ gem update --system
 $ gem install compass
