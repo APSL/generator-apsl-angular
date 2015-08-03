@@ -18,3 +18,6 @@ $ npm i
 ```bash
 $ sudo npm link
 ```
+
+## TO-DO
+Roadmap de desarrollo: https://github.com/APSL/generator-apsl-angular/issues/1
