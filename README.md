@@ -13,7 +13,7 @@ $ npm install -g grunt-cli bower yo
 ```bash
 $ npm i
 ```
-4. Ejecutar:
+5. Ejecutar:
 ```bash
 $ sudo npm link
 ```
