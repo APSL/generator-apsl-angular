@@ -4,6 +4,11 @@ Generador de aplicaciones AngularJS siguiendo el estándar APSL.
 
 ## Instalación
 
+- Instalar compass:
+```bash
+$ gem update --system
+$ gem install compass
+```
 - Instalar herramientas:
 ```bash
 $ npm install -g grunt-cli bower yo
