@@ -20,4 +20,9 @@ $ sudo npm link
 ```
 
 ## TO-DO
+
 Roadmap de desarrollo: https://github.com/APSL/generator-apsl-angular/issues/1
+
+## Licencia
+
+[BSD license](http://opensource.org/licenses/bsd-license.php)
