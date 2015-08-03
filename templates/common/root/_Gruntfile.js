@@ -69,11 +69,11 @@ module.exports = function (grunt) {
             '<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}',
             '<%%= yeoman.app %>/**/styles/{,*/}*.{scss,sass}'
         ],
-        tasks: ['compass:server', 'postcss:server']
+        tasks: ['compass:server', 'autoprefixer:server']
       },<% } else { %>
       styles: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.css'],
-        tasks: ['newer:copy:styles', 'postcss']
+        tasks: ['newer:copy:styles', 'autoprefixer']
       },<% } %>
       gruntfile: {
         files: ['Gruntfile.js']
@@ -194,33 +194,57 @@ module.exports = function (grunt) {
       server: '.tmp'
     },
 
-    // Add vendor prefixed styles
-    postcss: {
-      options: {
-        processors: [
-          require('autoprefixer-core')({browsers: ['last 1 version']})
-        ]
-      },
-      server: {
-        options: {
-          map: true
-        },
-        files: [{
-          expand: true,
-          cwd: '.tmp/styles/',
-          src: '{,*/}*.css',
-          dest: '.tmp/styles/'
-        }]
-      },
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '.tmp/styles/',
-          src: '{,*/}*.css',
-          dest: '.tmp/styles/'
-        }]
-      }
-    },
+	      // Add vendor prefixed styles
+	      autoprefixer: {
+	      options: {
+		  browsers: ['last 1 version']
+		      },
+		  server: {
+		  options: {
+		      map: true,
+			  },
+		      files: [{
+			  expand: true,
+			      cwd: '.tmp/styles/',
+			      src: '{,*/}*.css',
+			      dest: '.tmp/styles/'
+			      }]
+		      },
+		  dist: {
+		  files: [{
+			  expand: true,
+			      cwd: '.tmp/styles/',
+			      src: '{,*/}*.css',
+			      dest: '.tmp/styles/'
+			      }]
+		      }
+	  },
+//     postcss: {
+//       options: {
+//         processors: [
+//           require('autoprefixer-core')({browsers: ['last 1 version']})
+//         ]
+//       },
+//       server: {
+//         options: {
+//           map: true
+//         },
+//         files: [{
+//           expand: true,
+//           cwd: '.tmp/styles/',
+//           src: '{,*/}*.css',
+//           dest: '.tmp/styles/'
+//         }]
+//       },
+//       dist: {
+//         files: [{
+//           expand: true,
+//           cwd: '.tmp/styles/',
+//           src: '{,*/}*.css',
+//           dest: '.tmp/styles/'
+//         }]
+//       }
+//     },
 
     // Automatically inject Bower components into the app
     wiredep: {
@@ -587,7 +611,7 @@ module.exports = function (grunt) {
       'wiredep',<% if (typescript) { %>
       'tsd:refresh',<% } %>
       'concurrent:server',
-      'postcss:server',
+      'autoprefixer:server',
       'connect:livereload',
       'watch'
     ]);
@@ -603,7 +627,7 @@ module.exports = function (grunt) {
     'wiredep',<% if (typescript) { %>
     'tsd:refresh',<% } %>
     'concurrent:test',
-    'postcss',
+    'autoprefixer',
     'connect:test',
     'karma'
   ]);
@@ -614,7 +638,7 @@ module.exports = function (grunt) {
     'tsd:refresh',<% } %>
     'useminPrepare',
     'concurrent:dist',
-    'postcss',
+    'autoprefixer',
     'ngtemplates',
     'concat',
     'ngAnnotate',

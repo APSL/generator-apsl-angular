@@ -30,7 +30,7 @@ Generator.prototype.welcome = function welcome() {
                 '   / /\\ \\ |  ___/ \\___ \\| |     \n' +
                 '  / ____ \\| |     ____) | |____ \n' +
                 ' /_/    \\_\\_|    |_____/|______|\n' +
-                '****** APSL Angular Generator  ******\n\n'
+                '****** APSL Angular Generator ******\n\n'
             ),
             chalk.magenta(
                 'This generator extends the default yo generator-angular in ' +
