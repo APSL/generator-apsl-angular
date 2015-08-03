@@ -1,3 +1,5 @@
+https://raw.githubusercontent.com/wiki/APSL/generator-apsl-angular/apsl_frontend.png
+
 # generator-apsl-angular
 
 Generador de aplicaciones AngularJS siguiendo el estándar APSL.
