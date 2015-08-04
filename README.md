@@ -1,5 +1,5 @@
 <p align="center">
-![APSL Front-end tools](https://raw.githubusercontent.com/wiki/APSL/generator-apsl-angular/apsl_frontend_sml.png)
+<img src="https://raw.githubusercontent.com/wiki/APSL/generator-apsl-angular/apsl_frontend_sml.png" alt="APSL Front-end">
 </p>
 
 # generator-apsl-angular
