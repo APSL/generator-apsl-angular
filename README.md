@@ -1,4 +1,6 @@
+<p align="center">
 ![APSL Front-end tools](https://raw.githubusercontent.com/wiki/APSL/generator-apsl-angular/apsl_frontend_sml.png)
+</p>
 
 # generator-apsl-angular
 
